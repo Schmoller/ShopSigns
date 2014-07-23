@@ -1,0 +1,29 @@
+name: ShopSigns
+version: ${pluginversion}
+author: Schmoller
+
+main: au.com.addstar.ShopSigns.ShopSignsPlugin
+
+depend: [Vault]
+
+permissions:
+  shopsigns.buy.create:
+    default: op
+  shopsigns.buy.use:
+    default: true
+  shopsigns.sell.create:
+    default: op
+  shopsigns.sell.use:
+    default: true
+  shopsigns.time.create:
+    default: op
+  shopsigns.time.use:
+    default: true
+  shopsigns.weather.create:
+    default: op
+  shopsigns.weather.use:
+    default: true
+  shopsigns.enchant.create:
+    default: op
+  shopsigns.enchant.use:
+    default: true
