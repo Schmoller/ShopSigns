@@ -41,7 +41,6 @@ public class SignManager
 		{
 			try
 			{
-				System.out.println("Attempting to use " + def.getClass());
 				if(def.initialize(event))
 					return true;
 			}
@@ -51,7 +50,6 @@ public class SignManager
 			}
 			catch(IllegalAccessException e)
 			{
-				System.out.println("No permission");
 				return true;
 			}
 		}

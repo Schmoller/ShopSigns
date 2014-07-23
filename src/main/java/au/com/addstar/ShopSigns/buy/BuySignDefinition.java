@@ -54,7 +54,7 @@ public class BuySignDefinition extends SignDefinition
 		
 		if(material == null)
 		{
-			material = Material.getMaterial(parts[0]);
+			material = Material.getMaterial(parts[0].toUpperCase());
 			if(material == null)
 				throw new IllegalArgumentException("Line 2: Unknown item " + parts[0]);
 		}
