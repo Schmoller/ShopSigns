@@ -16,7 +16,7 @@ public class BuySignDefinition extends SignDefinition
 		if(!sign.getLine(0).equals(ChatColor.DARK_BLUE + "[Buy]"))
 			return null;
 		
-		return new BuySign(parseItem(sign.getLine(1)), parseCount(sign.getLine(2)), parsePrice(sign.getLine(3)));
+		return new BuySign(parseItem(sign.getLine(2)), parseCount(sign.getLine(1)), parsePrice(sign.getLine(3)));
 	}
 
 	@Override
@@ -28,8 +28,8 @@ public class BuySignDefinition extends SignDefinition
 		if(!event.getPlayer().hasPermission("shopsigns.buy.create"))
 			throw new IllegalAccessException();
 		
-		parseItem(event.getLine(1));
-		parseCount(event.getLine(2));
+		parseCount(event.getLine(1));
+		parseItem(event.getLine(2));
 		parsePrice(event.getLine(3));
 		
 		event.setLine(0, ChatColor.DARK_BLUE + "[Buy]");
@@ -65,11 +65,11 @@ public class BuySignDefinition extends SignDefinition
 			{
 				data = Short.parseShort(parts[1]);
 				if(data < 0)
-					throw new IllegalArgumentException("Line 2: Data value is out of range");
+					throw new IllegalArgumentException("Line 3: Data value is out of range");
 			}
 			catch(NumberFormatException e)
 			{
-				throw new IllegalArgumentException("Line 2: Data value can only be numbers. Names are not supported");
+				throw new IllegalArgumentException("Line 3: Data value can only be numbers. Names are not supported");
 			}
 		}
 		
@@ -78,6 +78,9 @@ public class BuySignDefinition extends SignDefinition
 	
 	private double parsePrice(String line) throws IllegalArgumentException
 	{
+		if(line.startsWith("$"))
+			line = line.substring(1);
+		
 		try
 		{
 			double amount = Double.parseDouble(line);
@@ -88,7 +91,7 @@ public class BuySignDefinition extends SignDefinition
 		}
 		catch(NumberFormatException e)
 		{
-			throw new IllegalArgumentException("Line 4: Price must be a decimal 0 or more. It may not contain currency symbols");
+			throw new IllegalArgumentException("Line 4: Price must be a decimal 0 or more. It may start with $");
 		}
 	}
 
@@ -98,13 +101,13 @@ public class BuySignDefinition extends SignDefinition
 		{
 			int count = Integer.parseInt(line);
 			if(count <= 0)
-				throw new IllegalArgumentException("Line 3: Count must be 1 or higher");
+				throw new IllegalArgumentException("Line 2: Count must be 1 or higher");
 			
 			return count;
 		}
 		catch(NumberFormatException e)
 		{
-			throw new IllegalArgumentException("Line 3: Count must be a number 1 or higher");
+			throw new IllegalArgumentException("Line 2: Count must be a number 1 or higher");
 		}
 	}
 }
