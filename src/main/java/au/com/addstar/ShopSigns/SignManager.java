@@ -7,6 +7,7 @@ import org.bukkit.block.Sign;
 import org.bukkit.event.block.SignChangeEvent;
 
 import au.com.addstar.ShopSigns.buy.BuySignDefinition;
+import au.com.addstar.ShopSigns.time.TimeSignDefinition;
 
 public class SignManager
 {
@@ -60,5 +61,6 @@ public class SignManager
 	private void loadDefaultDefinitions()
 	{
 		addDefinition(new BuySignDefinition());
+		addDefinition(new TimeSignDefinition());
 	}
 }
