@@ -1,5 +1,7 @@
 package au.com.addstar.ShopSigns.weather;
 
+import java.util.Random;
+
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.ChatColor;
@@ -37,22 +39,28 @@ public class WeatherSign extends InteractiveSign
 		Economy econ = ShopSignsPlugin.getEconomy();
 		if(mPrice == 0 || econ.has(player, mPrice))
 		{
+			int duration = (300 + new Random().nextInt(600)) * 20;
+		    
+			player.getWorld().setThunderDuration(duration);
+			player.getWorld().setWeatherDuration(duration);
+			
 			switch(mState)
 			{
 			case Storm:
 				player.getWorld().setThundering(true);
-				player.getWorld().setThunderDuration(8000);
+				player.getWorld().setStorm(true);
+				break;
 			case Rain:
-				player.getWorld().setWeatherDuration(10000);
+				player.getWorld().setStorm(true);
+				player.getWorld().setThundering(false);
 				break;
 			case Sun:
 				player.getWorld().setStorm(false);
 				player.getWorld().setThundering(false);
-				player.getWorld().setWeatherDuration(0);
 				break;
 			}
 			
-			player.sendMessage(ChatColor.GREEN + "You have changed the weather.");
+			player.sendMessage(ChatColor.GREEN + "You have changed the weather to " + mState.name() + " for " + (duration / 20) + " seconds.");
 			
 			if(mPrice != 0)
 			{
