@@ -62,7 +62,13 @@ public class BuySign extends InteractiveSign
 		if(result.isEmpty())
 			completeTransaction(player, count);
 		else
-			completeTransaction(player, count - result.get(0).getAmount());
+		{
+			int toBuy = count - result.get(0).getAmount();
+			if(toBuy == 0)
+				player.sendMessage(ChatColor.RED + "Your inventory is full.");
+			else
+				completeTransaction(player, toBuy);
+		}
 		
 		player.updateInventory();
 	}

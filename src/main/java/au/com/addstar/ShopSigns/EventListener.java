@@ -44,6 +44,9 @@ public class EventListener implements Listener
 					sign.onLeftClick(event.getPlayer(), event.getItem());
 				else
 					sign.onRightClick(event.getPlayer(), event.getItem());
+				
+				if(event.getAction() != Action.LEFT_CLICK_BLOCK || !event.getPlayer().isSneaking())
+					event.setCancelled(true);
 			}
 		}
 	}
