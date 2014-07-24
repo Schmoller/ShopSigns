@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.block.Sign;
 import org.bukkit.event.block.SignChangeEvent;
 
+import au.com.addstar.ShopSigns.balance.BalanceSignDefinition;
 import au.com.addstar.ShopSigns.buy.BuySignDefinition;
 import au.com.addstar.ShopSigns.disposal.DisposalSignDefinition;
 import au.com.addstar.ShopSigns.enchant.EnchantSignDefinition;
@@ -70,5 +71,6 @@ public class SignManager
 		addDefinition(new WeatherSignDefinition());
 		addDefinition(new EnchantSignDefinition());
 		addDefinition(new DisposalSignDefinition());
+		addDefinition(new BalanceSignDefinition());
 	}
 }

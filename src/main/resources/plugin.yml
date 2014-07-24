@@ -33,3 +33,8 @@ permissions:
     default: op
   shopsigns.disposal.use:
     default: true
+  shopsigns.balance.create:
+    default: op
+  shopsigns.balance.use:
+    default: true
+  
