@@ -1,0 +1,11 @@
+# The time in seconds the user has to wait before they can click the sign again.
+# You should have this set to prevent accidental double clicks
+cooldown: 0.5
+
+# Whether to allow users to buy only some of the amount listed on the sign
+# either due to money or inventory space
+allow-partial-buy: true
+
+# Whether to allow users to sell less that the amount listed on the sign
+# due to how much they are carrying
+allow-partial-sell: true

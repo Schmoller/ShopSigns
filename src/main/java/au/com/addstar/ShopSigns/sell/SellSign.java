@@ -1,5 +1,6 @@
 package au.com.addstar.ShopSigns.sell;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
@@ -27,12 +28,29 @@ public class SellSign extends InteractiveSign
 	{
 		if(!player.hasPermission("shopsigns.sell.use"))
 		{
-			player.sendMessage("You do not have permission to sell here");
+			player.sendMessage(ChatColor.RED + "You do not have permission to sell here");
 			return;
 		}
 		
 		ItemStack toRemove = new ItemStack(mItem);
 		toRemove.setAmount(mCount);
+		
+		if(!ShopSignsPlugin.allowPartialSell)
+		{
+			HashMap<Integer, ? extends ItemStack> items = player.getInventory().all(mItem.getType());
+			int available = 0;
+			for(ItemStack it : items.values())
+			{
+				if(it.isSimilar(mItem))
+					available += it.getAmount();
+			}
+			
+			if(available < mCount)
+			{
+				player.sendMessage(ChatColor.RED + "You do not have enough " + mItem.getType().name() + " to sell");
+				return;
+			}
+		}
 		
 		Map<Integer, ItemStack> result = player.getInventory().removeItem(toRemove);
 		int count = mCount;
@@ -56,6 +74,8 @@ public class SellSign extends InteractiveSign
 	@Override
 	public void onRightClick( Player player, ItemStack item )
 	{
+		if(player.hasPermission("shopsigns.sell.use"))
+			player.sendMessage(ChatColor.GOLD + "To sell, left click the sign.");
 	}
 
 }

@@ -41,7 +41,7 @@ public class BuySign extends InteractiveSign
 		Economy econ = ShopSignsPlugin.getEconomy();
 		if(econ.has(player, mPrice))
 			doTransaction(player, mAmount);
-		else
+		else if(ShopSignsPlugin.allowPartialBuy)
 		{
 			double unitPrice = mPrice / mAmount;
 			int count = (int)(econ.getBalance(player) / unitPrice);
@@ -50,6 +50,8 @@ public class BuySign extends InteractiveSign
 			else
 				doTransaction(player, count);
 		}
+		else
+			player.sendMessage(ChatColor.RED + "You have insufficient funds to purchase that");
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -61,7 +63,7 @@ public class BuySign extends InteractiveSign
 		Map<Integer, ItemStack> result = player.getInventory().addItem(toGive);
 		if(result.isEmpty())
 			completeTransaction(player, count);
-		else
+		else if(ShopSignsPlugin.allowPartialBuy)
 		{
 			int toBuy = count - result.get(0).getAmount();
 			if(toBuy == 0)
@@ -69,6 +71,8 @@ public class BuySign extends InteractiveSign
 			else
 				completeTransaction(player, toBuy);
 		}
+		else
+			player.sendMessage(ChatColor.RED + "Your inventory is full.");
 		
 		player.updateInventory();
 	}

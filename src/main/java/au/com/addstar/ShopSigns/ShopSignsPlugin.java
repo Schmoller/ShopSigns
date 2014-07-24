@@ -12,6 +12,10 @@ public class ShopSignsPlugin extends JavaPlugin
 	
 	private SignManager mManager;
 	
+	public static boolean allowPartialBuy;
+	public static boolean allowPartialSell;
+	public static long signCooldown;
+	
 	@Override
 	public void onEnable()
 	{
@@ -21,8 +25,19 @@ public class ShopSignsPlugin extends JavaPlugin
 		
 		mEconomy = econ.getProvider();
 		
+		loadConfig();
+		
 		mManager = new SignManager();
 		Bukkit.getPluginManager().registerEvents(new EventListener(mManager), this);
+	}
+	
+	private void loadConfig()
+	{
+		saveDefaultConfig();
+		double cooldown = getConfig().getDouble("cooldown", 0.5);
+		signCooldown = (long)(cooldown * 1000);
+		allowPartialBuy = getConfig().getBoolean("allow-partial-buy", true);
+		allowPartialSell = getConfig().getBoolean("allow-partial-sell", true);
 	}
 	
 	public static Economy getEconomy()
