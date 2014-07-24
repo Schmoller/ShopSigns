@@ -29,3 +29,7 @@ permissions:
     default: true
   shopsigns.enchant.free:
     default: false
+  shopsigns.disposal.create:
+    default: op
+  shopsigns.disposal.use:
+    default: true
