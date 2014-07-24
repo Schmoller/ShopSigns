@@ -7,7 +7,10 @@ import org.bukkit.block.Sign;
 import org.bukkit.event.block.SignChangeEvent;
 
 import au.com.addstar.ShopSigns.buy.BuySignDefinition;
+import au.com.addstar.ShopSigns.enchant.EnchantSignDefinition;
+import au.com.addstar.ShopSigns.sell.SellSignDefinition;
 import au.com.addstar.ShopSigns.time.TimeSignDefinition;
+import au.com.addstar.ShopSigns.weather.WeatherSignDefinition;
 
 public class SignManager
 {
@@ -61,6 +64,10 @@ public class SignManager
 	private void loadDefaultDefinitions()
 	{
 		addDefinition(new BuySignDefinition());
+		addDefinition(new SellSignDefinition());
 		addDefinition(new TimeSignDefinition());
+		addDefinition(new WeatherSignDefinition());
+		addDefinition(new EnchantSignDefinition());
+		
 	}
 }

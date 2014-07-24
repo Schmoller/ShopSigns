@@ -52,7 +52,7 @@ public class EnchantSign extends InteractiveSign
 		// Check for conflicts
 		for(Enchantment enchant : item.getEnchantments().keySet())
 		{
-			if(mEnchant.conflictsWith(enchant))
+			if(mEnchant.conflictsWith(enchant) && !mEnchant.equals(enchant))
 			{
 				player.sendMessage(ChatColor.GOLD + "This item cannot accept this enchantment. It will conflict with another enchantment.");
 				return;
@@ -94,6 +94,7 @@ public class EnchantSign extends InteractiveSign
 		
 		item.addUnsafeEnchantment(mEnchant, current+1);
 		player.sendMessage(ChatColor.GREEN + "Successfully enchanted your item");
+		player.sendMessage(ChatColor.GREEN + econ.format(cost) + " has been taken from your balance.");
 	}
 
 }
