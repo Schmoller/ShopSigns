@@ -27,3 +27,5 @@ permissions:
     default: op
   shopsigns.enchant.use:
     default: true
+  shopsigns.enchant.free:
+    default: false
