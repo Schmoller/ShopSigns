@@ -9,6 +9,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import au.com.addstar.ShopSigns.log.QuickshopListener;
 import au.com.addstar.ShopSigns.log.TradeLog;
 
 public class ShopSignsPlugin extends JavaPlugin
@@ -37,7 +38,6 @@ public class ShopSignsPlugin extends JavaPlugin
 		{
 			try
 			{
-				getLogger().info("Initializing trade log");
 				mLog.initialize();
 			}
 			catch(IllegalArgumentException e)
@@ -50,6 +50,9 @@ public class ShopSignsPlugin extends JavaPlugin
 		
 		mManager = new SignManager();
 		Bukkit.getPluginManager().registerEvents(new EventListener(mManager), this);
+		
+		if(Bukkit.getPluginManager().isPluginEnabled("QuickShop"))
+			Bukkit.getPluginManager().registerEvents(new QuickshopListener(), this);
 	}
 	
 	@Override

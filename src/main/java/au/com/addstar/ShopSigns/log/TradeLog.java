@@ -31,6 +31,13 @@ public class TradeLog
 			mInstance.log(entry);
 	}
 	
+	public static void log(Player player, String otherPlayer, String type, String action, double money, int count, String data, String extra, Location location)
+	{
+		TradeLogEntry entry = new TradeLogEntry(player.getName(), otherPlayer, type, action, money, count, data, extra, location);
+		if(mInstance != null)
+			mInstance.log(entry);
+	}
+	
 	private String mUsername;
 	private String mPassword;
 	private String mHost;

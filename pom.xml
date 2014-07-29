@@ -50,6 +50,13 @@
   	  <version>1.4.1</version>
   	  <optional>true</optional>
   	</dependency>
+  	
+  	<!-- QuickShop -->
+    <dependency>
+      <groupId>org.maxgamer</groupId>
+      <artifactId>quickshop</artifactId>
+      <version>4.4</version>
+    </dependency>
   </dependencies>
   
 </project>
