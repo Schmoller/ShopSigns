@@ -19,7 +19,7 @@ public class TimeSignDefinition extends SignDefinition
 		if(!sign.getLine(2).isEmpty())
 			price = Util.parsePrice(sign.getLine(2), 3);
 		
-		return new TimeSign(parseTime(sign.getLine(1)), price);
+		return new TimeSign(sign.getLocation(), parseTime(sign.getLine(1)), price);
 	}
 
 	@Override

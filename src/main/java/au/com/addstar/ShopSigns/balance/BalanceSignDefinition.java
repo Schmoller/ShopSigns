@@ -14,7 +14,7 @@ public class BalanceSignDefinition extends SignDefinition
 		if(!sign.getLine(0).equals(ChatColor.DARK_BLUE + "[Balance]"))
 			return null;
 		
-		return new BalanceSign();
+		return new BalanceSign(sign.getLocation());
 	}
 
 	@Override

@@ -52,7 +52,7 @@ public class EnchantSignDefinition extends SignDefinition
 			return null;
 		
 		Enchantment enchant = parseEnchant(sign.getLine(1));
-		return new EnchantSign(enchant, Util.parsePrice(sign.getLine(2), 3), parseMaxLevel(sign.getLine(3), enchant));
+		return new EnchantSign(sign.getLocation(), enchant, Util.parsePrice(sign.getLine(2), 3), parseMaxLevel(sign.getLine(3), enchant));
 	}
 
 	@Override

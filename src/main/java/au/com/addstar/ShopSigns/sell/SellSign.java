@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import au.com.addstar.ShopSigns.InteractiveSign;
 import au.com.addstar.ShopSigns.ShopSignsPlugin;
+import au.com.addstar.ShopSigns.log.TradeLog;
 
 public class SellSign extends InteractiveSign
 {
@@ -16,8 +18,9 @@ public class SellSign extends InteractiveSign
 	private int mCount;
 	private double mPrice;
 	
-	public SellSign(ItemStack item, int count, double price)
+	public SellSign(Location location, ItemStack item, int count, double price)
 	{
+		super(location);
 		mItem = item;
 		mCount = count;
 		mPrice = price;
@@ -68,6 +71,7 @@ public class SellSign extends InteractiveSign
 			double money = (mPrice / mCount) * count;
 			ShopSignsPlugin.getEconomy().depositPlayer(player, money);
 			player.sendMessage(ChatColor.GREEN + "You sold " + count + " " + mItem.getType().name() + " for " + ShopSignsPlugin.getEconomy().format(money));
+			TradeLog.log(player, "SHOP", "SELL", money, count, mItem.getType().name(), String.valueOf(mItem.getDurability()), getLocation());
 		}
 	}
 

@@ -9,3 +9,9 @@ allow-partial-buy: true
 # Whether to allow users to sell less that the amount listed on the sign
 # due to how much they are carrying
 allow-partial-sell: true
+
+database:
+  host: localhost:3306
+  database: database
+  username: username
+  password: password

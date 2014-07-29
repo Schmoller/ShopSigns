@@ -2,6 +2,7 @@ package au.com.addstar.ShopSigns.disposal;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -10,6 +11,11 @@ import au.com.addstar.ShopSigns.InteractiveSign;
 
 public class DisposalSign extends InteractiveSign
 {
+	public DisposalSign(Location location)
+	{
+		super(location);
+	}
+	
 	@Override
 	public void onLeftClick( Player player, ItemStack item )
 	{

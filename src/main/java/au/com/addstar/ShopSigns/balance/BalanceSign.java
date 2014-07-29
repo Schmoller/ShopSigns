@@ -1,6 +1,7 @@
 package au.com.addstar.ShopSigns.balance;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -9,6 +10,11 @@ import au.com.addstar.ShopSigns.ShopSignsPlugin;
 
 public class BalanceSign extends InteractiveSign
 {
+	public BalanceSign(Location location)
+	{
+		super(location);
+	}
+	
 	@Override
 	public void onLeftClick( Player player, ItemStack item )
 	{

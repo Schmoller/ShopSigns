@@ -14,7 +14,7 @@ public class DisposalSignDefinition extends SignDefinition
 		if(!sign.getLine(0).equals(ChatColor.DARK_BLUE + "[Disposal]"))
 			return null;
 		
-		return new DisposalSign();
+		return new DisposalSign(sign.getLocation());
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public class WeatherSignDefinition extends SignDefinition
 		if(!sign.getLine(2).isEmpty())
 			price = Util.parsePrice(sign.getLine(2), 3);
 		
-		return new WeatherSign(parseWeather(sign.getLine(1)), price);
+		return new WeatherSign(sign.getLocation(), parseWeather(sign.getLine(1)), price);
 	}
 
 	@Override

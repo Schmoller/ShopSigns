@@ -17,7 +17,7 @@ public class SellSignDefinition extends SignDefinition
 		if(!sign.getLine(0).equals(ChatColor.DARK_BLUE + "[Sell]"))
 			return null;
 		
-		return new SellSign(parseItem(sign.getLine(2)), parseCount(sign.getLine(1)), Util.parsePrice(sign.getLine(3), 4));
+		return new SellSign(sign.getLocation(), parseItem(sign.getLine(2)), parseCount(sign.getLine(1)), Util.parsePrice(sign.getLine(3), 4));
 	}
 
 	@Override

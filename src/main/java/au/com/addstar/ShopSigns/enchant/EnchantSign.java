@@ -3,12 +3,14 @@ package au.com.addstar.ShopSigns.enchant;
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import au.com.addstar.ShopSigns.InteractiveSign;
 import au.com.addstar.ShopSigns.ShopSignsPlugin;
+import au.com.addstar.ShopSigns.log.TradeLog;
 
 public class EnchantSign extends InteractiveSign
 {
@@ -16,8 +18,9 @@ public class EnchantSign extends InteractiveSign
 	private double mPrice;
 	private int mMaxLevel;
 	
-	public EnchantSign(Enchantment enchant, double price, int level)
+	public EnchantSign(Location location, Enchantment enchant, double price, int level)
 	{
+		super(location);
 		mEnchant = enchant;
 		mPrice = price;
 		mMaxLevel = level;
@@ -95,6 +98,7 @@ public class EnchantSign extends InteractiveSign
 		item.addUnsafeEnchantment(mEnchant, current+1);
 		player.sendMessage(ChatColor.GREEN + "Successfully enchanted your item");
 		player.sendMessage(ChatColor.GREEN + econ.format(cost) + " has been taken from your balance.");
+		TradeLog.log(player, "ENCHANT", "BUY", cost, 1, mEnchant.getName(), String.valueOf(current+1), getLocation());
 	}
 
 }

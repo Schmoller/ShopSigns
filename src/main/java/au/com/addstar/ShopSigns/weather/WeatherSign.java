@@ -5,19 +5,22 @@ import java.util.Random;
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import au.com.addstar.ShopSigns.InteractiveSign;
 import au.com.addstar.ShopSigns.ShopSignsPlugin;
+import au.com.addstar.ShopSigns.log.TradeLog;
 
 public class WeatherSign extends InteractiveSign
 {
 	private WeatherState mState;
 	private double mPrice;
 	
-	public WeatherSign(WeatherState state, double price)
+	public WeatherSign(Location location, WeatherState state, double price)
 	{
+		super(location);
 		mState = state;
 		mPrice = price;
 	}
@@ -66,6 +69,7 @@ public class WeatherSign extends InteractiveSign
 			{
 				econ.withdrawPlayer(player, mPrice);
 				player.sendMessage(ChatColor.GREEN + econ.format(mPrice) + " has been taken from your balance.");
+				TradeLog.log(player, "SET", "WEATHER", mPrice, 0, mState.name(), null, getLocation());
 			}
 		}
 		else

@@ -16,7 +16,7 @@ public class BuySignDefinition extends SignDefinition
 		if(!sign.getLine(0).equals(ChatColor.DARK_BLUE + "[Buy]"))
 			return null;
 		
-		return new BuySign(parseItem(sign.getLine(2)), parseCount(sign.getLine(1)), parsePrice(sign.getLine(3)));
+		return new BuySign(sign.getLocation(), parseItem(sign.getLine(2)), parseCount(sign.getLine(1)), parsePrice(sign.getLine(3)));
 	}
 
 	@Override

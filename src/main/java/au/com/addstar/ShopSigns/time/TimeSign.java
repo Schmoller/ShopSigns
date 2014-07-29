@@ -3,19 +3,22 @@ package au.com.addstar.ShopSigns.time;
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import au.com.addstar.ShopSigns.InteractiveSign;
 import au.com.addstar.ShopSigns.ShopSignsPlugin;
+import au.com.addstar.ShopSigns.log.TradeLog;
 
 public class TimeSign extends InteractiveSign
 {
 	private int mTime;
 	private double mPrice;
 	
-	public TimeSign(int time, double price)
+	public TimeSign(Location location, int time, double price)
 	{
+		super(location);
 		mTime = time;
 		mPrice = price;
 	}
@@ -44,6 +47,7 @@ public class TimeSign extends InteractiveSign
 			{
 				econ.withdrawPlayer(player, mPrice);
 				player.sendMessage(ChatColor.GREEN + econ.format(mPrice) + " has been taken from your balance.");
+				TradeLog.log(player, "SET", "TIME", mPrice, 0, String.valueOf(mTime), null, getLocation());
 			}
 		}
 		else

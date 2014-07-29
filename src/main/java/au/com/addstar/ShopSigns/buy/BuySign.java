@@ -5,11 +5,13 @@ import java.util.Map;
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import au.com.addstar.ShopSigns.InteractiveSign;
 import au.com.addstar.ShopSigns.ShopSignsPlugin;
+import au.com.addstar.ShopSigns.log.TradeLog;
 
 public class BuySign extends InteractiveSign
 {
@@ -17,8 +19,9 @@ public class BuySign extends InteractiveSign
 	private int mAmount;
 	private double mPrice;
 	
-	public BuySign(ItemStack item, int count, double price)
+	public BuySign(Location location, ItemStack item, int count, double price)
 	{
+		super(location);
 		mItem = item;
 		mAmount = count;
 		mPrice = price;
@@ -82,6 +85,7 @@ public class BuySign extends InteractiveSign
 		double price = calculatePrice(count);
 		ShopSignsPlugin.getEconomy().withdrawPlayer(player, price);
 		player.sendMessage(ChatColor.GREEN + "You have bought " + count + " " + mItem.getType() + "'s for " + ShopSignsPlugin.getEconomy().format(price));
+		TradeLog.log(player, "SHOP", "BUY", price, count, mItem.getType().name(), String.valueOf(mItem.getDurability()), getLocation());
 	}
 	
 	private double calculatePrice(int count)
