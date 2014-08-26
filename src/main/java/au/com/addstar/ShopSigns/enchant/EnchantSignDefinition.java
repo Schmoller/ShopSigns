@@ -1,7 +1,5 @@
 package au.com.addstar.ShopSigns.enchant;
 
-import java.util.HashMap;
-
 import org.bukkit.ChatColor;
 import org.bukkit.block.Sign;
 import org.bukkit.enchantments.Enchantment;
@@ -9,42 +7,10 @@ import org.bukkit.event.block.SignChangeEvent;
 
 import au.com.addstar.ShopSigns.SignDefinition;
 import au.com.addstar.ShopSigns.Util;
+import au.com.addstar.monolith.lookup.Lookup;
 
 public class EnchantSignDefinition extends SignDefinition
 {
-	private HashMap<String, Enchantment> mEnchantments = new HashMap<String, Enchantment>();
-	
-	public EnchantSignDefinition()
-	{
-		mEnchantments.put("projectile", Enchantment.PROTECTION_PROJECTILE);
-		mEnchantments.put("fireprotection", Enchantment.PROTECTION_FIRE);
-		mEnchantments.put("aquaaffinity", Enchantment.WATER_WORKER);
-		mEnchantments.put("protection", Enchantment.PROTECTION_ENVIRONMENTAL);
-		mEnchantments.put("sharpness", Enchantment.DAMAGE_ALL);
-		mEnchantments.put("falling", Enchantment.PROTECTION_FALL);
-		mEnchantments.put("thorns", Enchantment.THORNS);
-		mEnchantments.put("fortune", Enchantment.LOOT_BONUS_BLOCKS);
-		mEnchantments.put("fireaspect", Enchantment.FIRE_ASPECT);
-		mEnchantments.put("blast", Enchantment.PROTECTION_EXPLOSIONS);
-		mEnchantments.put("damage", Enchantment.ARROW_DAMAGE);
-		mEnchantments.put("power", Enchantment.ARROW_DAMAGE);
-		mEnchantments.put("flame", Enchantment.ARROW_FIRE);
-		mEnchantments.put("punch", Enchantment.ARROW_KNOCKBACK);
-		mEnchantments.put("infinity", Enchantment.ARROW_INFINITE);
-		mEnchantments.put("looting", Enchantment.LOOT_BONUS_MOBS);
-		mEnchantments.put("respiration", Enchantment.OXYGEN);
-		mEnchantments.put("efficiency", Enchantment.DIG_SPEED);
-		mEnchantments.put("knockback", Enchantment.KNOCKBACK);
-		mEnchantments.put("silktouch", Enchantment.SILK_TOUCH);
-		mEnchantments.put("vsarthropods", Enchantment.DAMAGE_ARTHROPODS);
-		mEnchantments.put("arthropods", Enchantment.DAMAGE_ARTHROPODS);
-		mEnchantments.put("unbreaking", Enchantment.DURABILITY);
-		mEnchantments.put("vsundead", Enchantment.DAMAGE_UNDEAD);
-		mEnchantments.put("smite", Enchantment.DAMAGE_UNDEAD);
-		mEnchantments.put("lure", Enchantment.LURE);
-		mEnchantments.put("luckofsea", Enchantment.LUCK);
-	}
-	
 	@Override
 	public EnchantSign parse( Sign sign ) throws IllegalArgumentException
 	{
@@ -77,7 +43,7 @@ public class EnchantSignDefinition extends SignDefinition
 	@SuppressWarnings( "deprecation" )
 	private Enchantment parseEnchant(String line) throws IllegalArgumentException
 	{
-		Enchantment enchant = mEnchantments.get(line.toLowerCase());
+		Enchantment enchant = Lookup.findEnchantmentByName(line);
 		if(enchant == null)
 			enchant = Enchantment.getByName(line.toUpperCase());
 		if(enchant == null)
