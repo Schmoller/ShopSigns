@@ -48,7 +48,7 @@ public class TimeSignDefinition extends SignDefinition
 		if(line.equalsIgnoreCase("day"))
 			return 0;
 		else if(line.equalsIgnoreCase("night"))
-			return 12000;
+			return 13000;
 		else if(line.equalsIgnoreCase("noon"))
 			return 6000;
 		else if(line.equalsIgnoreCase("midnight"))
