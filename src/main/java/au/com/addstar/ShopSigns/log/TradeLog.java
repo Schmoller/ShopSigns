@@ -11,6 +11,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 public class TradeLog
@@ -24,7 +25,7 @@ public class TradeLog
 			mInstance.log(entry);
 	}
 	
-	public static void log(Player player, Player otherPlayer, String type, String action, double money, int count, String data, String extra, Location location)
+	public static void log(Player player, OfflinePlayer otherPlayer, String type, String action, double money, int count, String data, String extra, Location location)
 	{
 		TradeLogEntry entry = new TradeLogEntry(player.getName(), otherPlayer.getName(), type, action, money, count, data, extra, location);
 		if(mInstance != null)

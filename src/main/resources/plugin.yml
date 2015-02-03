@@ -5,6 +5,7 @@ author: Schmoller
 main: au.com.addstar.ShopSigns.ShopSignsPlugin
 
 depend: [Vault]
+softdepend: [Quickshop]
 
 permissions:
   shopsigns.buy.create:
