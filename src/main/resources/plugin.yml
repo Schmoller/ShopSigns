@@ -1,5 +1,5 @@
 name: ShopSigns
-version: ${pluginversion}
+version: ${plugin.version}
 author: Schmoller
 
 main: au.com.addstar.ShopSigns.ShopSignsPlugin
