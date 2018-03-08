@@ -15,13 +15,13 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class EventListener implements Listener
 {
-	private SignManager mManager;
-	private WeakHashMap<Player, Long> mLastClick;
+	private final SignManager mManager;
+	private final WeakHashMap<Player, Long> mLastClick;
 	
 	public EventListener(SignManager manager)
 	{
 		mManager = manager;
-		mLastClick = new WeakHashMap<Player, Long>();
+		mLastClick = new WeakHashMap<>();
 	}
 	
 	@EventHandler(priority=EventPriority.HIGH, ignoreCancelled=true)

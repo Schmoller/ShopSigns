@@ -39,15 +39,15 @@ public class TradeLog
 			mInstance.log(entry);
 	}
 	
-	private String mUsername;
-	private String mPassword;
-	private String mHost;
-	private String mDatabase;
+	private final String mUsername;
+	private final String mPassword;
+	private final String mHost;
+	private final String mDatabase;
 	
 	private Connection mConnection;
 	private PreparedStatement mInsertStatement;
 	
-	private BlockingQueue<TradeLogEntry> mCachedEntries;
+	private final BlockingQueue<TradeLogEntry> mCachedEntries;
 	private QueueThread mThread;
 	
 	public TradeLog(String host, String database, String username, String password)
@@ -57,7 +57,7 @@ public class TradeLog
 		mUsername = username;
 		mPassword = password;
 		
-		mCachedEntries = new LinkedBlockingQueue<TradeLogEntry>();
+		mCachedEntries = new LinkedBlockingQueue<>();
 	}
 	
 	public void initialize() throws IllegalArgumentException
@@ -83,7 +83,7 @@ public class TradeLog
 		{
 			mThread.join();
 		}
-		catch ( InterruptedException e )
+		catch ( InterruptedException ignored)
 		{
 		}
 		closeAll();
@@ -183,7 +183,7 @@ public class TradeLog
 					}
 				}
 			}
-			catch(InterruptedException e)
+			catch(InterruptedException ignored)
 			{
 			}
 			catch(SQLException e)

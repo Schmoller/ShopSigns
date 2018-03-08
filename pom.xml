@@ -8,11 +8,14 @@
   <packaging>jar</packaging>
 
   <name>ShopSigns</name>
-  
+  <description>A sign plugin built for Spigot - ${spigot.version}</description>
   <properties>
     <build.number />
     <plugin.version>${project.version}-${build.number}</plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <spigot.version>1.12.2-R0.1-SNAPSHOT</spigot.version>
+    <monolith.version>1.4.7-SNAPSHOT</monolith.version>
+    <mainClass>${project.groupId}.${artifactId}.ShopSignsPlugin</mainClass>
   </properties>
   <scm>
     <connection>scm:git:git@github.com:AddstarMC/ShopSigns.git</connection>
@@ -34,29 +37,31 @@
   </distributionManagement>
 
   <repositories>
-    <!-- Addstar repos -->
-    <repository>
-      <id>addstar-repo</id>
-      <url>http://maven.addstar.com.au/artifactory/ext-release-local</url>
-    </repository>
-    <repository>
-      <id>maven.addstar.com.au</id>
-      <name>maven.addstar.com.au-snapshots</name>
-      <url>http://maven.addstar.com.au/artifactory/ext-snapshot-local</url>
-    </repository>
-    
+      <repository>
+          <snapshots>
+              <enabled>false</enabled>
+          </snapshots>
+          <id>central</id>
+          <name>all-release</name>
+          <url>http://maven.addstar.com.au/artifactory/all-release</url>
+      </repository>
+      <repository>
+          <snapshots />
+          <id>snapshots</id>
+          <name>all-snapshot</name>
+          <url>http://maven.addstar.com.au/artifactory/all-snapshot</url>
+      </repository>
     <!-- For Vault -->
     <repository>
       <id>vault-repo</id>
       <url>http://nexus.hc.to/content/repositories/pub_releases/</url>
     </repository>
   </repositories>
-
   <dependencies>
     <dependency>
       <groupId>org.spigotmc</groupId>
-      <artifactId>spigot</artifactId>
-      <version>1.11-R0.1-SNAPSHOT</version>
+      <artifactId>spigot-api</artifactId>
+      <version>${spigot.version}</version>
       <optional>true</optional>
     </dependency>
   	
@@ -65,20 +70,26 @@
       <artifactId>VaultAPI</artifactId>
       <version>1.6</version>
       <optional>true</optional>
+        <exclusions>
+            <exclusion>
+                <groupId>org.bukkit</groupId>
+                <artifactId>bukkit</artifactId>
+            </exclusion>
+        </exclusions>
     </dependency>
   	
     <!-- QuickShop -->
     <dependency>
       <groupId>au.com.addstar</groupId>
       <artifactId>quickshop</artifactId>
-      <version>4.7</version>
+      <version>4.8.0</version>
     </dependency>
     
     <!-- For name lookup -->
     <dependency>
       <groupId>au.com.addstar</groupId>
       <artifactId>Monolith</artifactId>
-      <version>1.4.4-SNAPSHOT</version>
+      <version>${monolith.version}</version>
       <optional>true</optional>
     </dependency>
   </dependencies>
@@ -96,12 +107,12 @@
       </resource>
     </resources>
 
-    <sourceDirectory>src</sourceDirectory>
+    <sourceDirectory>src/main/java</sourceDirectory>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
+        <version>3.6.2</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
@@ -110,7 +121,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
-        <version>2.5.1</version>
+        <version>2.5.3</version>
       </plugin>
     </plugins>
   </build>

@@ -1,8 +1,8 @@
 name: ShopSigns
 version: ${plugin.version}
 author: Schmoller
-
-main: au.com.addstar.ShopSigns.ShopSignsPlugin
+description: ${project.description}
+main: ${mainClass}
 
 depend: [Vault]
 softdepend: [QuickShop]

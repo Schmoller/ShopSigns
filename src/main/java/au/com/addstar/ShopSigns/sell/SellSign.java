@@ -15,9 +15,9 @@ import au.com.addstar.monolith.StringTranslator;
 
 public class SellSign extends InteractiveSign
 {
-	private ItemStack mItem;
-	private int mCount;
-	private double mPrice;
+	private final ItemStack mItem;
+	private final int mCount;
+	private final double mPrice;
 	
 	public SellSign(Location location, ItemStack item, int count, double price)
 	{

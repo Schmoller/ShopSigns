@@ -6,7 +6,7 @@ import org.bukkit.inventory.ItemStack;
 
 public abstract class InteractiveSign
 {
-	private Location mLocation;
+	private final Location mLocation;
 	public InteractiveSign(Location location)
 	{
 		mLocation = location;

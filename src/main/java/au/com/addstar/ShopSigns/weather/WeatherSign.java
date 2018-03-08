@@ -15,8 +15,8 @@ import au.com.addstar.ShopSigns.log.TradeLog;
 
 public class WeatherSign extends InteractiveSign
 {
-	private WeatherState mState;
-	private double mPrice;
+	private final WeatherState mState;
+	private final double mPrice;
 	
 	public WeatherSign(Location location, WeatherState state, double price)
 	{

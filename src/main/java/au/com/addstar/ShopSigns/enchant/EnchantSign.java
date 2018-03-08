@@ -14,9 +14,9 @@ import au.com.addstar.ShopSigns.log.TradeLog;
 
 public class EnchantSign extends InteractiveSign
 {
-	private Enchantment mEnchant;
-	private double mPrice;
-	private int mMaxLevel;
+	private final Enchantment mEnchant;
+	private final double mPrice;
+	private final int mMaxLevel;
 	
 	public EnchantSign(Location location, Enchantment enchant, double price, int level)
 	{

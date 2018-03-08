@@ -53,7 +53,7 @@ public class EnchantSignDefinition extends SignDefinition
 				int id = Integer.parseInt(line);
 				enchant = Enchantment.getById(id);
 			}
-			catch(NumberFormatException e)
+			catch(NumberFormatException ignored)
 			{
 			}
 		}

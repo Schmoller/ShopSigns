@@ -16,11 +16,11 @@ import au.com.addstar.ShopSigns.weather.WeatherSignDefinition;
 
 public class SignManager
 {
-	private ArrayList<SignDefinition> mDefinitions;
+	private final ArrayList<SignDefinition> mDefinitions;
 	
 	public SignManager()
 	{
-		mDefinitions = new ArrayList<SignDefinition>();
+		mDefinitions = new ArrayList<>();
 		
 		loadDefaultDefinitions();
 	}

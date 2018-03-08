@@ -13,8 +13,8 @@ import au.com.addstar.ShopSigns.log.TradeLog;
 
 public class TimeSign extends InteractiveSign
 {
-	private int mTime;
-	private double mPrice;
+	private final int mTime;
+	private final double mPrice;
 	
 	public TimeSign(Location location, int time, double price)
 	{
