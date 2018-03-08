@@ -3,7 +3,7 @@
 
   <groupId>au.com.addstar</groupId>
   <artifactId>ShopSigns</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>ShopSigns</name>
@@ -20,7 +20,7 @@
     <connection>scm:git:git@github.com:AddstarMC/ShopSigns.git</connection>
     <developerConnection>scm:git:git@github.com:AddstarMC/ShopSigns.git</developerConnection>
     <url>https://github.com/AddstarMC/ShopSigns</url>
-    <tag>ShopSigns-1.0.0</tag>
+    <tag>HEAD</tag>
   </scm>
   <distributionManagement>
     <repository>
