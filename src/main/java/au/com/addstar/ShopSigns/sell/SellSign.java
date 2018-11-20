@@ -72,7 +72,7 @@ public class SellSign extends InteractiveSign
 			double money = (mPrice / mCount) * count;
 			ShopSignsPlugin.getEconomy().depositPlayer(player, money);
 			player.sendMessage(ChatColor.GREEN + "You sold " + count + " " + StringTranslator.getName(mItem) + "'s for " + ShopSignsPlugin.getEconomy().format(money));
-			TradeLog.log(player, "SHOP", "SELL", money, count, mItem.getType().name(), String.valueOf(mItem.getDurability()), getLocation());
+			TradeLog.log(player, "SHOP", "SELL", money, count, mItem.getType().name(), String.valueOf(mItem.getItemMeta()), getLocation());
 		}
 	}
 

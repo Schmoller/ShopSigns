@@ -1,5 +1,6 @@
 name: ShopSigns
 version: ${plugin.version}
+api-version: ${spigot.api.version}
 author: Schmoller
 description: ${project.description}
 main: ${mainClass}

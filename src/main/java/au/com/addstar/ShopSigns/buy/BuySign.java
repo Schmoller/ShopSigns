@@ -58,7 +58,6 @@ public class BuySign extends InteractiveSign
 			player.sendMessage(ChatColor.RED + "You have insufficient funds to purchase that");
 	}
 	
-	@SuppressWarnings( "deprecation" )
 	private void doTransaction(Player player, int count)
 	{
 		ItemStack toGive = new ItemStack(mItem);
@@ -86,7 +85,7 @@ public class BuySign extends InteractiveSign
 		double price = calculatePrice(count);
 		ShopSignsPlugin.getEconomy().withdrawPlayer(player, price);
 		player.sendMessage(ChatColor.GREEN + "You have bought " + count + " " + StringTranslator.getName(mItem) + "'s for " + ShopSignsPlugin.getEconomy().format(price));
-		TradeLog.log(player, "SHOP", "BUY", price, count, mItem.getType().name(), String.valueOf(mItem.getDurability()), getLocation());
+		TradeLog.log(player, "SHOP", "BUY", price, count, mItem.getType().name(), String.valueOf(mItem.getItemMeta()), getLocation());
 	}
 	
 	private double calculatePrice(int count)

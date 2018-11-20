@@ -8,7 +8,6 @@ import org.bukkit.inventory.ItemStack;
 
 import au.com.addstar.ShopSigns.SignDefinition;
 import au.com.addstar.monolith.lookup.Lookup;
-import au.com.addstar.monolith.lookup.MaterialDefinition;
 
 public class BuySignDefinition extends SignDefinition
 {
@@ -38,50 +37,25 @@ public class BuySignDefinition extends SignDefinition
 		return true;
 	}
 	
-	@SuppressWarnings( "deprecation" )
 	private ItemStack parseItem(String line)
 	{
 		String[] parts = line.split(":");
-		MaterialDefinition def = null;
-		
+		Material type;
 		try
 		{
-			int id = Integer.parseInt(parts[0]);
-			def = new MaterialDefinition(Material.getMaterial(id), (short)-1);
+			type  = Material.getMaterial(parts[0].toUpperCase());
 		}
 		catch(NumberFormatException e)
 		{
-			def = Lookup.findItemByName(parts[0]);
+			type = Lookup.findItemByName(parts[0]);
 		}
 		
-		if(def == null)
-		{
-			Material material = Material.getMaterial(parts[0].toUpperCase());
-			if(material == null)
-				throw new IllegalArgumentException("Line 2: Unknown item " + parts[0]);
-			
-			def = new MaterialDefinition(material, (short)-1);
-		}
+		if(type == null)
+			throw new IllegalArgumentException("Line 2: Unknown item " + parts[0]);
 		
-		if(parts.length == 2 && def.getData() == -1)
-		{
-			try
-			{
-				short data = Short.parseShort(parts[1]);
-				if(data < 0)
-					throw new IllegalArgumentException("Line 3: Data value is out of range");
-				
-				def = new MaterialDefinition(def.getMaterial(), data);
-			}
-			catch(NumberFormatException e)
-			{
-				throw new IllegalArgumentException("Line 3: Data value can only be numbers. Names are not supported");
-			}
-		}
-		else if (def.getData() == -1)
-			def = new MaterialDefinition(def.getMaterial(), (short)0);
+
 		
-		return def.asItemStack(1);
+		return new ItemStack(type,1);
 	}
 	
 	private double parsePrice(String line) throws IllegalArgumentException

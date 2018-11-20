@@ -98,7 +98,7 @@ public class EnchantSign extends InteractiveSign
 		item.addUnsafeEnchantment(mEnchant, current+1);
 		player.sendMessage(ChatColor.GREEN + "Successfully enchanted your item");
 		player.sendMessage(ChatColor.GREEN + econ.format(cost) + " has been taken from your balance.");
-		TradeLog.log(player, "ENCHANT", "BUY", cost, 1, mEnchant.getName(), String.valueOf(current+1), getLocation());
+		TradeLog.log(player, "ENCHANT", "BUY", cost, 1, mEnchant.getKey().getKey(), String.valueOf(current+1), getLocation());
 	}
 
 }
