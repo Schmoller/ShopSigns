@@ -1,6 +1,7 @@
 package au.com.addstar.ShopSigns.enchant;
 
 import org.bukkit.ChatColor;
+import org.bukkit.NamespacedKey;
 import org.bukkit.block.Sign;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.block.SignChangeEvent;
@@ -40,24 +41,13 @@ public class EnchantSignDefinition extends SignDefinition
 		return true;
 	}
 	
-	@SuppressWarnings( "deprecation" )
 	private Enchantment parseEnchant(String line) throws IllegalArgumentException
 	{
 		Enchantment enchant = Lookup.findEnchantmentByName(line);
 		if(enchant == null)
-			enchant = Enchantment.getByName(line.toUpperCase());
+			enchant = Enchantment.getByKey(NamespacedKey.minecraft(line.toUpperCase()));
 		if(enchant == null)
-		{
-			try
-			{
-				int id = Integer.parseInt(line);
-				enchant = Enchantment.getById(id);
-			}
-			catch(NumberFormatException ignored)
-			{
-			}
-		}
-		
+			enchant = Enchantment.getByName(line.toUpperCase());
 		if(enchant == null)
 			throw new IllegalArgumentException("Line 2: Unknown enchantment " + line);
 		
