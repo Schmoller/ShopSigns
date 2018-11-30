@@ -82,7 +82,7 @@ public class ShopSignsPlugin extends JavaPlugin
 		
 		ConfigurationSection section = getConfig().getConfigurationSection("database");
 		if(section != null)
-			mLog = new TradeLog(section.getString("host"), section.getString("database"), section.getString("username"), section.getString("password"));
+			mLog = new TradeLog(section.getString("host"), section.getString("database"), section.getString("username"), section.getString("password"), section.getString("useSSL","false"));
 	}
 	
 	public static Economy getEconomy()

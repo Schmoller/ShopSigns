@@ -1,14 +1,11 @@
 package au.com.addstar.ShopSigns.log;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
+import java.sql.*;
+import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import au.com.addstar.ShopSigns.ShopSignsPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -17,6 +14,7 @@ import org.bukkit.entity.Player;
 public class TradeLog
 {
 	private static TradeLog mInstance;
+	private static final Integer dbVersion = 1;
 	
 	public static void log(Player player, String type, String action, double money, int count, String data, String extra, Location location)
 	{
@@ -41,8 +39,9 @@ public class TradeLog
 	
 	private final String mUsername;
 	private final String mPassword;
+    private final String mDatabase;
 	private final String mHost;
-	private final String mDatabase;
+	private final String mUseSSL;
 	
 	private Connection mConnection;
 	private PreparedStatement mInsertStatement;
@@ -50,12 +49,13 @@ public class TradeLog
 	private final BlockingQueue<TradeLogEntry> mCachedEntries;
 	private QueueThread mThread;
 	
-	public TradeLog(String host, String database, String username, String password)
+	public TradeLog(String host, String database, String username, String password, String useSSL)
 	{
 		mHost = host;
 		mDatabase = database;
 		mUsername = username;
 		mPassword = password;
+		mUseSSL = useSSL;
 		
 		mCachedEntries = new LinkedBlockingQueue<>();
 	}
@@ -105,7 +105,11 @@ public class TradeLog
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			mConnection = DriverManager.getConnection(String.format("jdbc:mysql://%s/%s", mHost, mDatabase), mUsername, mPassword);
+			Properties properties = new Properties();
+			properties.put("useSSL", mUseSSL);
+			properties.put("password", mPassword);
+			properties.put("username", mUsername);
+			mConnection = DriverManager.getConnection(String.format("jdbc:mysql://%s/%s", mHost, mDatabase),properties);
 			
 			mInsertStatement = mConnection.prepareStatement("INSERT `TradeLog` VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 		}
@@ -117,21 +121,57 @@ public class TradeLog
 	
 	private void prepareTables() throws SQLException
 	{
-		Statement statement = mConnection.createStatement();
-		try
+		try( Statement statement = mConnection.createStatement())
 		{
-			statement.executeQuery("SELECT * from `TradeLog` LIMIT 0;").close();
-			return;
+			statement.executeQuery("SELECT * from `TradeLog` LIMIT 0;");
 		}
-		catch(SQLException e)
-		{
-			// Table not there, procede
-		}
+		catch(SQLException e) {
+            // Table not there, procede
+            try(Statement statement = mConnection.createStatement()) {
+                statement.executeUpdate("CREATE TABLE `TradeLog` (`id` bigint(20) AUTO_INCREMENT PRIMARY KEY, `date` datetime NOT NULL, `type` varchar(15) NOT NULL, `action` varchar(15) NOT NULL, `player` varchar(20) NOT NULL, `otherplayer` varchar(20), `quantity` smallint(6), `amount` float(10,2) NOT NULL, `data` varchar(20), `extra` varchar(20), `server` varchar(20) NOT NULL, `world` varchar(20) NOT NULL, `location` varchar(30) NOT NULL);");
+            }catch (SQLException e2){
+                e2.printStackTrace();
+            }
+        }
 		
-		statement.executeUpdate("CREATE TABLE `TradeLog` (`id` bigint(20) AUTO_INCREMENT PRIMARY KEY, `date` datetime NOT NULL, `type` varchar(15) NOT NULL, `action` varchar(15) NOT NULL, `player` varchar(20) NOT NULL, `otherplayer` varchar(20), `quantity` smallint(6), `amount` float(10,2) NOT NULL, `data` varchar(20), `extra` varchar(20), `server` varchar(20) NOT NULL, `world` varchar(20) NOT NULL, `location` varchar(30) NOT NULL);");
+		try(Statement statement = mConnection.createStatement()){
+            ResultSet set = statement.executeQuery("Select MAX(`version`) from `Versions`;");
+            set.next();
+            Integer current = set.getInt(1);
+            if(current < dbVersion)updateDatabase(current);
+        }catch (SQLException e){
+            updateDatabase(0);
+        }
 		
-		statement.close();
 	}
+	
+	private void updateDatabase(Integer currentVersion){
+        if(currentVersion == null)currentVersion = 0;
+        if(currentVersion.equals(dbVersion))return;
+	    switch (currentVersion){
+            case 0:
+                try(    Statement statement = mConnection.createStatement();
+                        Statement s2 = mConnection.createStatement() ) {
+                    statement.executeUpdate("ALTER TABLE TradeLog modify extra varchar(100) null;");
+                    s2.executeUpdate("CREATE TABLE 'Versions' (`version` int(2));");
+                }catch (SQLException e ){
+                    Bukkit.getLogger().warning(" SHOPSIGNS: COULD NOT UPDATE VERSIONS!!! DB ERRORS:" +e.getMessage());
+                    break;
+                }
+        
+            case 1:
+                //current version
+                break;
+        }
+        //at this point everything should be updated to latest versions.
+        try( Statement statement = mConnection.createStatement() ){
+            statement.executeUpdate("INSERT `Versions` VALUES ("+dbVersion+") ;");
+            Bukkit.getLogger().warning("[SHOPSIGNS]: DB UPDATED TO VERSION: " +dbVersion);
+        }catch (SQLException e){
+            Bukkit.getLogger().warning(" SHOPSIGNS: COULD NOT UPDATE VERSIONS!!! DB ERRORS: " + e.getMessage() );
+            
+        }
+    }
 	
 	private class QueueThread extends Thread
 	{
