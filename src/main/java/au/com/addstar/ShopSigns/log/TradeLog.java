@@ -155,7 +155,7 @@ public class TradeLog
                 try(    Statement statement = mConnection.createStatement();
                         Statement s2 = mConnection.createStatement() ) {
                     statement.executeUpdate("ALTER TABLE TradeLog modify extra varchar(100) null;");
-                    s2.executeUpdate("CREATE TABLE 'Versions' (`version` int(2));");
+                    s2.executeUpdate("CREATE TABLE Versions(version int null);");
                 }catch (SQLException e ){
                     Bukkit.getLogger().warning(" SHOPSIGNS: COULD NOT UPDATE VERSIONS!!! DB ERRORS:" +e.getMessage());
                     break;
