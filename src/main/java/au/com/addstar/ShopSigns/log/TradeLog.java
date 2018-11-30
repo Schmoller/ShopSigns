@@ -110,7 +110,7 @@ public class TradeLog
 			Properties properties = new Properties();
 			properties.put("useSSL", mUseSSL);
 			properties.put("password", mPassword);
-			properties.put("username", mUsername);
+			properties.put("user", mUsername);
 			mConnection = DriverManager.getConnection(String.format("jdbc:mysql://%s/%s", mHost, mDatabase),properties);
 			
 			mInsertStatement = mConnection.prepareStatement("INSERT `TradeLog` VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
