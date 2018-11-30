@@ -6,10 +6,12 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import au.com.addstar.ShopSigns.ShopSignsPlugin;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 
 public class TradeLog
 {
@@ -203,7 +205,7 @@ public class TradeLog
 						mInsertStatement.setInt(6, entry.quantity);
 						mInsertStatement.setDouble(7, entry.money);
 						mInsertStatement.setString(8, entry.data);
-						mInsertStatement.setString(9, entry.extra);
+						mInsertStatement.setString(9, StringUtils.substring(entry.extra,0,99)); //varchar(100)
 						mInsertStatement.setString(10, Bukkit.getServerName());
 						mInsertStatement.setString(11, entry.location.getWorld().getName()); // world
 						mInsertStatement.setString(12, String.format("%d;%d;%d", entry.location.getBlockX(), entry.location.getBlockY(), entry.location.getBlockZ())); // loc string
