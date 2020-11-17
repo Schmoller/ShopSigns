@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemStack;
 import au.com.addstar.ShopSigns.InteractiveSign;
 import au.com.addstar.ShopSigns.ShopSignsPlugin;
 import au.com.addstar.ShopSigns.log.TradeLog;
-import au.com.addstar.monolith.StringTranslator;
 
 public class SellSign extends InteractiveSign
 {
@@ -51,7 +50,7 @@ public class SellSign extends InteractiveSign
 			
 			if(available < mCount)
 			{
-				player.sendMessage(ChatColor.RED + "You do not have enough " + StringTranslator.getName(mItem) + "'s to sell");
+				player.sendMessage(ChatColor.RED + "You do not have enough " + mItem.getType() + "'s to sell");
 				return;
 			}
 		}
@@ -66,12 +65,12 @@ public class SellSign extends InteractiveSign
 		}
 		
 		if(count == 0)
-			player.sendMessage(ChatColor.RED + "You do not have any " + StringTranslator.getName(mItem) + "'s to sell");
+			player.sendMessage(ChatColor.RED + "You do not have any " + mItem.getType() + "'s to sell");
 		else
 		{
 			double money = (mPrice / mCount) * count;
 			ShopSignsPlugin.getEconomy().depositPlayer(player, money);
-			player.sendMessage(ChatColor.GREEN + "You sold " + count + " " + StringTranslator.getName(mItem) + "'s for " + ShopSignsPlugin.getEconomy().format(money));
+			player.sendMessage(ChatColor.GREEN + "You sold " + count + " " + mItem.getType() + "'s for " + ShopSignsPlugin.getEconomy().format(money));
 			TradeLog.log(player, "SHOP", "SELL", money, count, mItem.getType().name(), String.valueOf(mItem.getItemMeta()), getLocation());
 		}
 	}

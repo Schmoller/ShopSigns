@@ -12,7 +12,6 @@ import org.bukkit.inventory.ItemStack;
 import au.com.addstar.ShopSigns.InteractiveSign;
 import au.com.addstar.ShopSigns.ShopSignsPlugin;
 import au.com.addstar.ShopSigns.log.TradeLog;
-import au.com.addstar.monolith.StringTranslator;
 
 public class BuySign extends InteractiveSign
 {
@@ -84,7 +83,7 @@ public class BuySign extends InteractiveSign
 	{
 		double price = calculatePrice(count);
 		ShopSignsPlugin.getEconomy().withdrawPlayer(player, price);
-		player.sendMessage(ChatColor.GREEN + "You have bought " + count + " " + StringTranslator.getName(mItem) + "'s for " + ShopSignsPlugin.getEconomy().format(price));
+		player.sendMessage(ChatColor.GREEN + "You have bought " + count + " " + mItem.getType() + "'s for " + ShopSignsPlugin.getEconomy().format(price));
 		TradeLog.log(player, "SHOP", "BUY", price, count, mItem.getType().name(), String.valueOf(mItem.getItemMeta()), getLocation());
 	}
 	
